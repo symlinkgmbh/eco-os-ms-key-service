@@ -1,0 +1,109 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The key service provides the whole handling of key elements.",
+    "version": "1.0.0",
+    "title": "2ndLock key service",
+    "termsOfService": "http://2ndLock.com",
+    "contact": {
+      "email": "jens@symlink.de"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "key",
+      "description": "Key managemement"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/key": {
+      "post": {
+        "tags": ["key"],
+        "summary": "create key entry",
+        "consumes": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/key/email": {
+      "get": {
+        "tags": ["key"],
+        "summary": "get key from user by email",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/revoke/key/pubKey": {
+      "delete": {
+        "tags": ["key"],
+        "summary": "delete key from user by public key",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/revoke/device/deviceId": {
+      "delete": {
+        "tags": ["key"],
+        "summary": "delete key from user by devide id",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/keys": {
+      "delete": {
+        "tags": ["key"],
+        "summary": "delete all keys",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/heartbeat": {
+      "get": {
+        "tags": ["heartbeat"],
+        "summary": "get current heartbeat from service",
+        "description": "response with current service health",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}

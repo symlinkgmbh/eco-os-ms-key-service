@@ -1,0 +1,15 @@
+{
+  "environment": "development",
+  "version": "0.0.1",
+  "buildDate": "NOW",
+  "buildSHA": "4-8-15-16-23-42",
+  "name": "eco-os-key-service",
+  "serviceId": "009",
+  "server": {
+    "port": "8007"
+  },
+  "mongo": {
+    "db": "secondlock",
+    "collection": "keys"
+  }
+}
