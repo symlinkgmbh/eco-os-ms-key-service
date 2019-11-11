@@ -18,7 +18,7 @@
 
 
 import { Request } from "express";
-import { Key, injectKeyService } from "@symlinkde/eco-os-pk-storage-key";
+import { injectKeyService } from "@symlinkde/eco-os-pk-storage-key";
 import { CustomRestError, apiResponseCodes } from "@symlinkde/eco-os-pk-api";
 import { injectUserClient } from "@symlinkde/eco-os-pk-core";
 import { PkCore, MsKey, PkStorageKey, MsOverride } from "@symlinkde/eco-os-pk-models";
@@ -28,6 +28,7 @@ import { PkCore, MsKey, PkStorageKey, MsOverride } from "@symlinkde/eco-os-pk-mo
 export class KeyController {
   private keyService!: PkStorageKey.IKeyService;
   private userClient!: PkCore.IEcoUserClient;
+
   public async getUsersKeysByEmail(req: MsOverride.IRequest): Promise<Array<MsKey.IKey>> {
     try {
       const response = await this.userClient.loadUserByEmail(req.params.email);
@@ -93,8 +94,8 @@ export class KeyController {
     if (result === null) {
       throw new CustomRestError(
         {
-          code: 400,
-          message: "Key could not be created",
+          code: apiResponseCodes.C852.code,
+          message: apiResponseCodes.C852.message,
         },
         400,
       );
@@ -107,10 +108,24 @@ export class KeyController {
     } catch (err) {
       throw new CustomRestError(
         {
-          code: 400,
-          message: "Problem in delete key",
+          code: apiResponseCodes.C853.code,
+          message: apiResponseCodes.C853.message,
         },
         400,
+      );
+    }
+  }
+
+  public async deleteDevice(req: MsOverride.IRequest): Promise<void> {
+    try {
+      await this.keyService.revokeDevice(req.params.deviceId);
+    } catch (err) {
+      throw new CustomRestError(
+        {
+          code: apiResponseCodes.C854.code,
+          message: apiResponseCodes.C854.message,
+        },
+        404,
       );
     }
   }

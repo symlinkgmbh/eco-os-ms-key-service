@@ -45,6 +45,7 @@ export class KeyRoute extends AbstractRoutes implements PkApi.IRoute {
     this.revokeKeyFromUserByDeviceId();
     this.revokeAllKeys();
     this.addKeyToUserByEmail();
+    this.deleteDevice();
   }
 
   private getUsersKeysByEmail(): void {
@@ -136,6 +137,20 @@ export class KeyRoute extends AbstractRoutes implements PkApi.IRoute {
             next(err);
           });
       });
-    return;
+  }
+
+  private deleteDevice(): void {
+    this.getApp()
+      .route("/delete/device/:deviceId")
+      .delete((req: Request, res: Response, next: NextFunction) => {
+        this.keyController
+          .deleteDevice(req)
+          .then((result) => {
+            res.send(result);
+          })
+          .catch((err) => {
+            next(err);
+          });
+      });
   }
 }
